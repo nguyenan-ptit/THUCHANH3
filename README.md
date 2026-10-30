@@ -34,6 +34,81 @@ IOT-B3/
 ```
 
 ---
+# Bài 1 – Lập trình Python với giao thức CoAP
+
+## Chạy chương trình
+
+**Terminal 1 – khởi động Server:**
+
+```bash
+python coap_server_bai1.py
+```
+
+**Terminal 2 – chạy Client:**
+
+```bash
+python coap_client_bai1.py
+```
+
+
+## Kết quả mong đợi
+
+**Client:**
+
+```text
+
+--- GET request ---
+Code: 2.05 Content
+Payload: Xin chao tu CoAP Server
+
+--- Multiple POST requests ---
+
+Sending: Xin chao tu CoAP Client - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+Sending: Thong diep thu 2 - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+Sending: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+--- GET latest message ---
+Code: 2.05 Content
+Payload: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+
+--- Test URI not found ---
+Code: 4.04 Not Found
+Payload:
+```
+
+**Server:**
+
+```text
+CoAP Server started on port 5683
+URI: coap://127.0.0.1:5683/iot/lab/message
+
+GET request received:
+URI: coap://127.0.0.1/iot/lab/message
+
+POST request received:
+Payload: Xin chao tu CoAP Client - B23DCCN001 - Nguyen Van A
+Time: 14:49:42
+
+POST request received:
+Payload: Thong diep thu 2 - B23DCCN001 - Nguyen Van A
+Time: 14:49:42
+
+POST request received:
+Payload: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+Time: 14:49:42
+
+GET request received:
+URI: coap://127.0.0.1/iot/lab/message
+```
+
 
 ## Bài 3 – Mô phỏng hệ thống giám sát và điều khiển đèn thông minh
 
