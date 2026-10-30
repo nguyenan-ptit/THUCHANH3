@@ -2,8 +2,8 @@
 Bai 3 - Chuong trinh 2: Light Controller Client
 Cho phep nguoi dung nhap lenh ON/OFF/STATUS/EXIT de dieu khien den
 
-Ho ten: [Ten sinh vien]
-Ma sinh vien: [MSSV]
+Ho ten: Vu Thanh Nguyen
+Ma sinh vien: B23DCCN617
 """
 
 import asyncio

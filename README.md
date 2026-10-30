@@ -1,28 +1,25 @@
 # CoAP Lab – THUCHANH3
 
-## Thông tin sinh viên
-
-| Thông tin | Chi tiết |
-|-----------|---------|
-| Họ tên    | [Tên sinh viên] |
-| MSSV      | [Mã sinh viên] |
-| Lớp       | [Lớp] |
-| Môn học   | Lập trình Python với giao thức CoAP |
-
----
-
 ## Môi trường
 
 | Thành phần | Phiên bản |
-|-----------|----------|
-| Python    | 3.10+    |
-| aiocoap   | ≥ 0.4.7  |
+| ---------- | --------- |
+| Python     | 3.10+     |
+| aiocoap    | ≥ 0.4.7   |
 
-### Cài đặt
+### Cài đặt (làm 1 lần)
 
-```bash
+Tạo môi trường ảo trong thư mục `IOT-B3` và cài `aiocoap` (PowerShell):
+
+```powershell
+cd E:\IOT-B3
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install aiocoap
 ```
+
+> Nếu PowerShell chặn chạy script khi kích hoạt `.venv`, chạy trước:
+> `Set-ExecutionPolicy -Scope Process Bypass`
 
 ---
 
@@ -42,49 +39,64 @@ IOT-B3/
 
 ### Địa chỉ & URI
 
-| Thành phần | Giá trị |
-|-----------|---------|
-| Protocol  | CoAP / UDP |
-| Host      | `127.0.0.1` |
-| Port      | `5683` |
-| URI light01 | `coap://localhost:5683/iot/lab/light01/status` |
-| URI fan01   | `coap://localhost:5683/iot/lab/fan01/status`   |
-| URI pump01  | `coap://localhost:5683/iot/lab/pump01/status`  |
+| Thành phần  | Giá trị                                        |
+| ----------- | ---------------------------------------------- |
+| Protocol    | CoAP / UDP                                     |
+| Host        | `127.0.0.1`                                    |
+| Port        | `5683`                                         |
+| URI light01 | `coap://127.0.0.1:5683/iot/lab/light01/status` |
+| URI fan01   | `coap://127.0.0.1:5683/iot/lab/fan01/status`   |
+| URI pump01  | `coap://127.0.0.1:5683/iot/lab/pump01/status`  |
 
 ### Cách chạy (mở 3 terminal)
 
-**Terminal 1 – Server**
+Chạy theo thứ tự: **Server → Monitor → Controller**. Mỗi terminal mới đều phải kích hoạt `.venv` trước (nếu không sẽ gặp lỗi `No module named 'aiocoap'`).
 
-```bash
+**Terminal 1 – Server** (để chạy liên tục, không tắt)
+
+```powershell
+cd E:\IOT-B3
+.\.venv\Scripts\Activate.ps1
 cd bai3
 python light_server_bai3.py
 ```
 
-**Terminal 2 – Controller Client**
+Thấy khung `CoAP Smart Light Server started on port 5683` là server đã sẵn sàng.
 
-```bash
-cd bai3
-python light_controller_bai3.py
-```
+**Terminal 2 – Monitoring Client** (CoAP Observe)
 
-Nhập lệnh:
-
-| Lệnh     | Chức năng |
-|----------|----------|
-| `ON`     | Bật đèn (PUT) |
-| `OFF`    | Tắt đèn (PUT) |
-| `STATUS` | Xem trạng thái (GET) |
-| `CHANGE` | Đổi thiết bị đang điều khiển |
-| `EXIT`   | Thoát chương trình |
-
-**Terminal 3 – Monitoring Client**
-
-```bash
+```powershell
+cd E:\IOT-B3
+.\.venv\Scripts\Activate.ps1
 cd bai3
 python light_monitor_bai3.py
 ```
 
-Chọn theo dõi **một thiết bị** hoặc **tất cả** (multi-observe).
+- Nhập `1` → chọn **một thiết bị** (Enter = `light01`)
+- Nhập `2` → theo dõi **tất cả** thiết bị (multi-observe)
+
+**Terminal 3 – Controller Client**
+
+```powershell
+cd E:\IOT-B3
+.\.venv\Scripts\Activate.ps1
+cd bai3
+python light_controller_bai3.py
+```
+
+Chọn thiết bị (Enter = `light01`), sau đó nhập lệnh:
+
+| Lệnh     | Chức năng                    |
+| -------- | ---------------------------- |
+| `ON`     | Bật thiết bị (PUT)           |
+| `OFF`    | Tắt thiết bị (PUT)           |
+| `STATUS` | Xem trạng thái (GET)         |
+| `CHANGE` | Đổi thiết bị đang điều khiển |
+| `EXIT`   | Thoát chương trình           |
+
+**Kiểm tra:** gõ `ON` / `OFF` ở Terminal 3 → Terminal 2 tự hiện trạng thái mới (Observe), và server ghi thay đổi vào `bai3/device_state_log.txt`.
+
+Dừng chương trình: `Ctrl+C`.
 
 ---
 
@@ -100,15 +112,15 @@ Chọn theo dõi **một thiết bị** hoặc **tất cả** (multi-observe).
 
 ### Phần mở rộng ✅
 
-| Tính năng mở rộng | Mô tả |
-|------------------|-------|
-| Kiểm tra lệnh không hợp lệ | Server trả về `4.00 Bad Request` với thông báo lỗi |
-| Nhiều Monitoring Client | Tất cả cùng nhận thông báo khi trạng thái thay đổi |
-| Nhiều thiết bị | `light01`, `fan01`, `pump01` – mỗi thiết bị một URI riêng |
-| Timestamp trong payload | Trường `timestamp` trong JSON phản hồi |
-| Ghi nhật ký ra file | File `device_state_log.txt` ghi mọi thay đổi trạng thái |
-| Lệnh CHANGE | Controller Client có thể đổi thiết bị không cần khởi động lại |
-| Multi-observe | Monitoring Client có thể theo dõi tất cả thiết bị đồng thời |
+| Tính năng mở rộng          | Mô tả                                                         |
+| -------------------------- | ------------------------------------------------------------- |
+| Kiểm tra lệnh không hợp lệ | Server trả về `4.00 Bad Request` với thông báo lỗi            |
+| Nhiều Monitoring Client    | Tất cả cùng nhận thông báo khi trạng thái thay đổi            |
+| Nhiều thiết bị             | `light01`, `fan01`, `pump01` – mỗi thiết bị một URI riêng     |
+| Timestamp trong payload    | Trường `timestamp` trong JSON phản hồi                        |
+| Ghi nhật ký ra file        | File `device_state_log.txt` ghi mọi thay đổi trạng thái       |
+| Lệnh CHANGE                | Controller Client có thể đổi thiết bị không cần khởi động lại |
+| Multi-observe              | Monitoring Client có thể theo dõi tất cả thiết bị đồng thời   |
 
 ---
 
@@ -141,7 +153,7 @@ Chọn theo dõi **một thiết bị** hoặc **tất cả** (multi-observe).
 
 ```
 CoAP Smart Light Server started on port 5683
-Resource: coap://localhost:5683/iot/lab/light01/status
+Resource: coap://127.0.0.1:5683/iot/lab/light01/status
 
 New Observe registration received
 
