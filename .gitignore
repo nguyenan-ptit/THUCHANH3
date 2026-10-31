@@ -1,4 +1,6 @@
 .venv/
+.idea/
 __pycache__/
 *.py[cod]
+device_state_log.txt
 bai2/sensor_data.csv
