@@ -281,8 +281,4 @@ Observe registration successful
 
 Log Bài 3 lưu cả lỗi khởi động trước đây khi bind `0.0.0.0` trên Windows và lần chạy thành công khi đổi sang `127.0.0.1` trong bộ kiểm chứng. Mã nguồn hiện tại đã dùng `bind=("127.0.0.1", 5683)` để phù hợp với các client và transport trên Windows.
 
-## 8. Hình thức nộp bài qua GitHub
 
-Nộp đường dẫn repository: **[https://github.com/nguyenan-ptit/THUCHANH3](https://github.com/nguyenan-ptit/THUCHANH3)**.
-
-Trước khi nộp, bảo đảm cả bảy file Python của ba bài, `requirements.txt`, `README.md` và các log trong `evidence/` đã được commit và push lên GitHub. Đối chiếu thông tin sinh viên trong mã nguồn, README và minh chứng. Không đưa môi trường ảo `.venv` hoặc các file cache Python vào repository.
