@@ -3,8 +3,8 @@ Bai 3 - Chuong trinh 3: Light Monitoring Client (CoAP Observe)
 Su dung co che Observe de tu dong nhan thong bao khi trang thai den thay doi.
 KHONG dung vong lap GET dinh ky.
 
-Ho ten: [Ten sinh vien]
-Ma sinh vien: [MSSV]
+Ho ten: B23DCCN617
+Ma sinh vien: Vu Thanh Nguyen
 """
 
 import asyncio

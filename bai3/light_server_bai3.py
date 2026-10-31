@@ -2,8 +2,8 @@
 Bai 3 - Chuong trinh 1: Smart Light CoAP Server
 Mo phong he thong giam sat va dieu khien den thong minh bang CoAP Observe
 
-Ho ten: [Ten sinh vien]
-Ma sinh vien: [MSSV]
+Ho ten: Vu Thanh Nguyen
+Ma sinh vien: B23DCCN617
 """
 
 import asyncio
@@ -155,14 +155,22 @@ def build_site() -> resource.Site:
 async def main():
     site = build_site()
 
-    # Bind tren ca IPv4 va IPv6 localhost
-    await aiocoap.Context.create_server_context(site, bind=("0.0.0.0", 5683))
+    # Tren Windows, aiocoap dung transport "simplesocketserver" -> KHONG cho bind
+    # any-address ("0.0.0.0" / "::"). Phai bind vao dia chi cu the.
+    # Controller va monitor ket noi toi 127.0.0.1 nen bind vao do.
+    try:
+        await aiocoap.Context.create_server_context(site, bind=("127.0.0.1", 5683))
+    except OSError as e:
+        raise SystemExit(
+            f"Khong bind duoc 127.0.0.1:5683 ({e}). "
+            "Co the server cu dang chay: netstat -ano | findstr 5683"
+        )
 
     print("=" * 55)
     print("  CoAP Smart Light Server started on port 5683")
     print("=" * 55)
     for dev_id, info in DEVICES.items():
-        print(f"  Resource: coap://localhost:5683/iot/lab/{dev_id}/status")
+        print(f"  Resource: coap://127.0.0.1:5683/iot/lab/{dev_id}/status")
         print(f"           ({info['description']})")
     print("=" * 55)
     print(f"  State log file: {LOG_FILE}")

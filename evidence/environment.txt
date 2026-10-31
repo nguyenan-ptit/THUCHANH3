@@ -1,0 +1,8 @@
+Captured at: 2026-10-30T04:01:02+07:00
+OS: Windows-10-10.0.19045-SP0
+Python: 3.14.0
+aiocoap: 0.4.17
+aiocoap Requires-Python: >=3.10
+Traffic: local IPv4 loopback, CoAP/UDP port 5683
+Server processes ran sequentially. Infinite server/Observe processes were terminated by the harness after capture.
+Logs contain actual process output; values and timestamps were not synthesized.

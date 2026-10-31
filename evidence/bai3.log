@@ -1,0 +1,253 @@
+
+==================== DEFAULT SERVER STARTUP ====================
+Command: python bai3/light_server_bai3.py
+Exit code: 1
+04:03:22 [INFO] Resource registered: /iot/lab/light01/status
+04:03:22 [INFO] Resource registered: /iot/lab/fan01/status
+04:03:22 [INFO] Resource registered: /iot/lab/pump01/status
+Traceback (most recent call last):
+  File "D:\THUCHANH3\bai3\light_server_bai3.py", line 178, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\ThinkPad\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\ThinkPad\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ThinkPad\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "D:\THUCHANH3\bai3\light_server_bai3.py", line 159, in main
+    await aiocoap.Context.create_server_context(site, bind=("0.0.0.0", 5683))
+  File "D:\THUCHANH3\.venv\Lib\site-packages\aiocoap\protocol.py", line 348, in create_server_context
+    await self._append_tokenmanaged_messagemanaged_transport(
+    ...<3 lines>...
+    )
+  File "D:\THUCHANH3\.venv\Lib\site-packages\aiocoap\protocol.py", line 148, in _append_tokenmanaged_messagemanaged_transport
+    transport = await message_interface_constructor(mman)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\THUCHANH3\.venv\Lib\site-packages\aiocoap\transports\simplesocketserver.py", line 219, in create_server
+    self._pool = await self._serversocket.create(bind, log, self._loop, self)  # type: ignore
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\THUCHANH3\.venv\Lib\site-packages\aiocoap\transports\simplesocketserver.py", line 113, in create
+    raise ValueError("The transport can not be bound to any-address.")
+ValueError: The transport can not be bound to any-address.
+
+==================== LOCAL SERVER WITH WINDOWS WORKAROUND ====================
+Only bind=("0.0.0.0", 5683) was replaced with bind=("127.0.0.1", 5683) in memory.
+Source files were not edited. Server working directory was a temporary directory.
+04:03:22 [INFO] Resource registered: /iot/lab/light01/status
+04:03:22 [INFO] Resource registered: /iot/lab/fan01/status
+04:03:22 [INFO] Resource registered: /iot/lab/pump01/status
+=======================================================
+  CoAP Smart Light Server started on port 5683
+=======================================================
+  Resource: coap://localhost:5683/iot/lab/light01/status
+           (Den phong khach)
+  Resource: coap://localhost:5683/iot/lab/fan01/status
+           (Quat tran phong ngu)
+  Resource: coap://localhost:5683/iot/lab/pump01/status
+           (May bom nuoc)
+=======================================================
+  State log file: device_state_log.txt
+  Nhan Ctrl+C de dung server.
+=======================================================
+04:03:23 [INFO] GET request received: /iot/lab/light01/status
+04:03:23 [INFO] GET request received: /iot/lab/light01/status
+04:03:23 [INFO] GET request received: /iot/lab/light01/status
+
+PUT request received:
+  Device : light01
+  Command: ON
+  Light state changed: OFF -> ON
+  Notify observers   : ON
+04:03:23 [INFO] GET request received: /iot/lab/light01/status
+04:03:23 [INFO] GET request received: /iot/lab/light01/status
+04:03:24 [INFO] GET request received: /iot/lab/light01/status
+
+PUT request received:
+  Device : light01
+  Command: ON
+  Trang thai khong doi (da la ON)
+
+PUT request received:
+  Device : light01
+  Command: OFF
+  Light state changed: ON -> OFF
+  Notify observers   : OFF
+04:03:24 [INFO] GET request received: /iot/lab/light01/status
+04:03:24 [INFO] GET request received: /iot/lab/light01/status
+04:03:24 [INFO] GET request received: /iot/lab/light01/status
+04:03:24 [INFO] GET request received: /iot/lab/fan01/status
+04:03:24 [INFO] GET request received: /iot/lab/pump01/status
+
+PUT request received:
+  Device : light01
+  Command: INVALID
+04:03:24 [WARNING] Lenh khong hop le: INVALID
+04:03:24 [WARNING] PUT: Payload khong hop le
+
+==================== CONTROLLER: python bai3/light_controller_bai3.py ====================
+Input: 1, STATUS, ON, STATUS, ON, OFF, EXIT
+==================================================
+  Light Controller Client
+  Server: coap://127.0.0.1:5683
+==================================================
+
+Danh sach thiet bi:
+  1. light01
+  2. fan01
+  3. pump01
+Chon so thu tu thiet bi (mac dinh 1 - light01): 
+Dang dieu khien thiet bi: light01
+Lenh: ON | OFF | STATUS | CHANGE | EXIT
+
+Nhap lenh (light01): 
+Sending GET request...
+URI: coap://127.0.0.1:5683/iot/lab/light01/status
+
+Response:
+  Code   : 2.05 Content
+  Device : light01
+  Status : OFF
+  Time   : 2026-10-30 04:03:23
+
+Nhap lenh (light01): 
+Sending PUT request...
+URI    : coap://127.0.0.1:5683/iot/lab/light01/status
+Command: ON
+
+Response Code: 2.04 Changed
+Da bat light01  (trang thai hien tai: ON)
+
+Nhap lenh (light01): 
+Sending GET request...
+URI: coap://127.0.0.1:5683/iot/lab/light01/status
+
+Response:
+  Code   : 2.05 Content
+  Device : light01
+  Status : ON
+  Time   : 2026-10-30 04:03:24
+
+Nhap lenh (light01): 
+Sending PUT request...
+URI    : coap://127.0.0.1:5683/iot/lab/light01/status
+Command: ON
+
+Response Code: 2.04 Changed
+Da bat light01  (trang thai hien tai: ON)
+
+Nhap lenh (light01): 
+Sending PUT request...
+URI    : coap://127.0.0.1:5683/iot/lab/light01/status
+Command: OFF
+
+Response Code: 2.04 Changed
+Da tat light01  (trang thai hien tai: OFF)
+
+Nhap lenh (light01): Ket thuc chuong trinh.
+
+==================== MONITOR 1: python bai3/light_monitor_bai3.py ====================
+Input: 1, 1
+==================================================
+  Light Monitoring Client (CoAP Observe)
+  Server: coap://127.0.0.1:5683
+==================================================
+
+Ban muon theo doi bao nhieu thiet bi?
+  1. Mot thiet bi
+  2. Tat ca thiet bi (multi-observe)
+Chon (mac dinh 1): 
+Danh sach thiet bi co the theo doi:
+  1. light01
+  2. fan01
+  3. pump01
+Chon so thu tu thiet bi (mac dinh 1 - light01): 
+Registering CoAP Observe...
+URI: coap://127.0.0.1:5683/iot/lab/light01/status
+Observe registration successful
+
+[04:03:23] Initial State
+  Device   : light01
+  Status   : OFF
+  Server TS: 2026-10-30 04:03:23
+  >>> DEN DANG TAT <<<
+
+Dang theo doi... (Nhan Ctrl+C de dung)
+---------------------------------------------
+
+[04:03:23] State Updated
+  Device   : light01
+  Status   : ON
+  Server TS: 2026-10-30 04:03:23
+  >>> DEN DANG BAT <<<
+
+[04:03:24] State Updated
+  Device   : light01
+  Status   : OFF
+  Server TS: 2026-10-30 04:03:24
+  >>> DEN DANG TAT <<<
+
+==================== MONITOR 2: python bai3/light_monitor_bai3.py ====================
+Input: 1, 1
+==================================================
+  Light Monitoring Client (CoAP Observe)
+  Server: coap://127.0.0.1:5683
+==================================================
+
+Ban muon theo doi bao nhieu thiet bi?
+  1. Mot thiet bi
+  2. Tat ca thiet bi (multi-observe)
+Chon (mac dinh 1): 
+Danh sach thiet bi co the theo doi:
+  1. light01
+  2. fan01
+  3. pump01
+Chon so thu tu thiet bi (mac dinh 1 - light01): 
+Registering CoAP Observe...
+URI: coap://127.0.0.1:5683/iot/lab/light01/status
+Observe registration successful
+
+[04:03:23] Initial State
+  Device   : light01
+  Status   : OFF
+  Server TS: 2026-10-30 04:03:23
+  >>> DEN DANG TAT <<<
+
+Dang theo doi... (Nhan Ctrl+C de dung)
+---------------------------------------------
+
+[04:03:23] State Updated
+  Device   : light01
+  Status   : ON
+  Server TS: 2026-10-30 04:03:23
+  >>> DEN DANG BAT <<<
+
+[04:03:24] State Updated
+  Device   : light01
+  Status   : OFF
+  Server TS: 2026-10-30 04:03:24
+  >>> DEN DANG TAT <<<
+
+==================== EXTRA REQUEST CHECKS ====================
+GET light01: 2.05 Content, Content-Format=50
+{"device_id": "light01", "status": "OFF", "timestamp": "2026-10-30 04:03:24"}
+GET fan01: 2.05 Content, Content-Format=50
+{"device_id": "fan01", "status": "OFF", "timestamp": "2026-10-30 04:03:24"}
+GET pump01: 2.05 Content, Content-Format=50
+{"device_id": "pump01", "status": "OFF", "timestamp": "2026-10-30 04:03:24"}
+PUT command=INVALID: 4.00 Bad Request
+Lenh khong hop le 'INVALID'. Chi chap nhan ON hoac OFF.
+PUT malformed JSON: 4.00 Bad Request
+Payload phai la JSON hop le
+GET /.well-known/core: 2.05 Content
+</iot/lab/light01/status>;obs,</iot/lab/fan01/status>;obs,</iot/lab/pump01/status>;obs,</.well-known/core>;ct="40",<https://christian.amsuess.com/tools/aiocoap/#version-0.4.17>;rel="impl-info"
+
+==================== DEVICE STATE LOG ====================
+[2026-10-30 04:03:23] light01: OFF -> ON
+[2026-10-30 04:03:24] light01: ON -> OFF
+
+==================== VERIFICATION ====================
+PASS with loopback bind: GET/PUT, 2 concurrent observers, OFF -> ON -> OFF, no notification for repeated ON, exactly 2 state log rows, invalid command and malformed JSON 4.00, resource discovery.

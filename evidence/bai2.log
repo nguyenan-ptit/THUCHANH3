@@ -1,0 +1,113 @@
+
+==================== SERVER: python bai2/sensor_server_bai2.py ====================
+[2026-10-30T04:01:03.209] sensor01: 36.2 C, 62.1 %
+[2026-10-30T04:01:03.209] sensor02: 31.7 C, 64.6 %
+[2026-10-30T04:01:03.209] sensor03: 32.2 C, 69.5 %
+
+Sensor CoAP Server started on port 5683
+URI: coap://127.0.0.1:5683/iot/lab/sensor01/data
+URI: coap://127.0.0.1:5683/iot/lab/sensor02/data
+URI: coap://127.0.0.1:5683/iot/lab/sensor03/data
+Cap nhat cam bien moi 3 giay. Nhan Ctrl+C de dung.
+GET request received: /iot/lab/sensor01/data
+GET request received: /iot/lab/sensor02/data
+GET request received: /iot/lab/sensor03/data
+GET request received: /iot/lab/sensor02/data
+[2026-10-30T04:01:06.222] sensor01: 39.9 C, 61.1 %
+[2026-10-30T04:01:06.222] sensor02: 39.8 C, 36.3 %
+[2026-10-30T04:01:06.222] sensor03: 30.4 C, 56.9 %
+GET request received: /iot/lab/sensor02/data
+[2026-10-30T04:01:09.233] sensor01: 33.0 C, 32.6 %
+[2026-10-30T04:01:09.234] sensor02: 39.3 C, 55.1 %
+[2026-10-30T04:01:09.234] sensor03: 24.3 C, 46.9 %
+GET request received: /iot/lab/sensor02/data
+[2026-10-30T04:01:12.248] sensor01: 24.5 C, 42.8 %
+[2026-10-30T04:01:12.248] sensor02: 33.5 C, 46.7 %
+[2026-10-30T04:01:12.248] sensor03: 20.3 C, 50.0 %
+GET request received: /iot/lab/sensor02/data
+[2026-10-30T04:01:15.256] sensor01: 29.1 C, 66.3 %
+[2026-10-30T04:01:15.256] sensor02: 27.6 C, 68.3 %
+[2026-10-30T04:01:15.256] sensor03: 29.7 C, 65.0 %
+GET request received: /iot/lab/sensor02/data
+[2026-10-30T04:01:18.269] sensor01: 33.0 C, 42.5 %
+[2026-10-30T04:01:18.269] sensor02: 33.6 C, 77.5 %
+[2026-10-30T04:01:18.269] sensor03: 20.5 C, 66.4 %
+GET request received: /iot/lab/sensor02/data
+
+==================== CLIENT: monitor_client_bai2.main('sensor02', CSV) ====================
+The verification harness cancels the client after 16.2 seconds; no keyboard signal was simulated.
+Luu du lieu vao: D:\THUCHANH3\evidence\bai2_sensor02.csv
+Monitoring CoAP Client
+URI: coap://127.0.0.1:5683/iot/lab/sensor02/data
+Gui GET moi 3 giay. Nhan Ctrl+C de dung.
+
+[2026-10-30T04:01:03.569] Received sensor data
+Device: sensor02
+Temperature: 31.7 C
+Humidity: 64.6 %
+Sensor timestamp: 2026-10-30T04:01:03.209
+Response time: 1.57 ms
+Trang thai: Binh thuong
+----------------------------------------
+
+[2026-10-30T04:01:06.586] Received sensor data
+Device: sensor02
+Temperature: 39.8 C
+Humidity: 36.3 %
+Sensor timestamp: 2026-10-30T04:01:06.222
+Response time: 6.19 ms
+CANH BAO: Nhiet do cao
+CANH BAO: Do am thap
+----------------------------------------
+
+[2026-10-30T04:01:09.594] Received sensor data
+Device: sensor02
+Temperature: 39.3 C
+Humidity: 55.1 %
+Sensor timestamp: 2026-10-30T04:01:09.234
+Response time: 4.51 ms
+CANH BAO: Nhiet do cao
+----------------------------------------
+
+[2026-10-30T04:01:12.597] Received sensor data
+Device: sensor02
+Temperature: 33.5 C
+Humidity: 46.7 %
+Sensor timestamp: 2026-10-30T04:01:12.248
+Response time: 5.57 ms
+Trang thai: Binh thuong
+----------------------------------------
+
+[2026-10-30T04:01:15.602] Received sensor data
+Device: sensor02
+Temperature: 27.6 C
+Humidity: 68.3 %
+Sensor timestamp: 2026-10-30T04:01:15.256
+Response time: 3.93 ms
+Trang thai: Binh thuong
+----------------------------------------
+
+[2026-10-30T04:01:18.616] Received sensor data
+Device: sensor02
+Temperature: 33.6 C
+Humidity: 77.5 %
+Sensor timestamp: 2026-10-30T04:01:18.269
+Response time: 4.48 ms
+Trang thai: Binh thuong
+----------------------------------------
+
+Tong so GET: 6
+So mau hop le: 6
+Thoi gian phan hoi trung binh: 4.38 ms
+Verification: client cancelled after 16.2 seconds; cleanup and summary completed.
+
+==================== EXTRA GET CHECKS ====================
+GET sensor01: 2.05 Content, Content-Format=JSON, Max-Age=0
+{"device_id": "sensor01", "temperature": 36.2, "humidity": 62.1, "timestamp": "2026-10-30T04:01:03.209"}
+GET sensor02: 2.05 Content, Content-Format=JSON, Max-Age=0
+{"device_id": "sensor02", "temperature": 31.7, "humidity": 64.6, "timestamp": "2026-10-30T04:01:03.209"}
+GET sensor03: 2.05 Content, Content-Format=JSON, Max-Age=0
+{"device_id": "sensor03", "temperature": 32.2, "humidity": 69.5, "timestamp": "2026-10-30T04:01:03.209"}
+
+==================== VERIFICATION ====================
+PASS: 3 sensor URIs; JSON format 50; Max-Age 0; 6 samples at about 3-second intervals; 6 CSV rows with changing timestamps.

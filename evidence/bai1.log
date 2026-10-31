@@ -1,0 +1,53 @@
+
+==================== SERVER: python bai1/coap_server_bai1.py ====================
+CoAP Server started on port 5683
+URI: coap://127.0.0.1:5683/iot/lab/message
+
+GET request received:
+URI: coap://127.0.0.1/iot/lab/message
+
+POST request received:
+Payload: Xin chao tu CoAP Client - B23DCCN001 - Nguyen Van A
+Time: 04:01:02
+
+POST request received:
+Payload: Thong diep thu 2 - B23DCCN001 - Nguyen Van A
+Time: 04:01:02
+
+POST request received:
+Payload: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+Time: 04:01:02
+
+GET request received:
+URI: coap://127.0.0.1/iot/lab/message
+
+==================== CLIENT: python bai1/coap_client_bai1.py ====================
+
+--- GET request ---
+Code: 2.05 Content
+Payload: Xin chao tu CoAP Server
+
+--- Multiple POST requests ---
+
+Sending: Xin chao tu CoAP Client - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+Sending: Thong diep thu 2 - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+Sending: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+Code: 2.04 Changed
+Payload: Server da nhan thong diep
+
+--- GET latest message ---
+Code: 2.05 Content
+Payload: Thong diep thu 3 - B23DCCN001 - Nguyen Van A
+
+--- Test URI not found ---
+Code: 4.04 Not Found
+Payload: 
+
+==================== VERIFICATION ====================
+PASS: initial GET, 3 POSTs, latest-message GET, unknown URI 4.04.
